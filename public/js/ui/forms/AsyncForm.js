@@ -13,7 +13,12 @@ class AsyncForm {
    * через registerEvents()
    * */
   constructor(element) {
-
+    if(element === undefined) {
+      const error = new Error('Parameter is undefined');
+      throw error;
+    }
+    this.element = element;
+    this.registerEvents()
   }
 
   /**
@@ -21,7 +26,10 @@ class AsyncForm {
    * вызывает метод submit()
    * */
   registerEvents() {
-
+    this.element.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.submit()
+    });
   }
 
   /**
@@ -31,12 +39,20 @@ class AsyncForm {
    *  'название поля формы 2': 'значение поля формы 2'
    * }
    * */
-  getData() {
 
+  getData() {
+    const formData = new FormData(this.element),
+        entries = formData.entries(),
+        formResult = {};
+    for (let item of entries) {
+      const key = item[ 0 ],
+          value = item[ 1 ];
+      formResult[key] = `${value}`;
+    }
+    return formResult;
   }
 
   onSubmit(options){
-
   }
 
   /**
@@ -44,6 +60,6 @@ class AsyncForm {
    * данные, полученные из метода getData()
    * */
   submit() {
-
+    this.onSubmit(this.getData())
   }
 }

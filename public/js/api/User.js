@@ -10,6 +10,7 @@ class User {
    * */
   static setCurrent(user) {
 
+
   }
 
   /**
@@ -64,8 +65,16 @@ class User {
    * User.setCurrent.
    * */
   static register(data, callback) {
-
+    createRequest({
+      url: 'user/register',
+      method: 'POST',
+      responseType: 'json',
+      data: data,
+      callback: callback,
+    });
   }
+
+
 
   /**
    * Производит выход из приложения. После успешного
