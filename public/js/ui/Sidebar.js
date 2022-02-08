@@ -43,5 +43,15 @@ class Sidebar {
     document.querySelector('.menu-item.menu-item_register').addEventListener('click', (e) => {
       App.getModal('register').open();
     })
+    document.querySelector('.menu-item.menu-item_logout').addEventListener('click', (e) => {
+      User.logout((response) => {
+        let obj = JSON.parse(response);
+        if(obj.success) {
+         console.log('Вышел');
+          User.unsetCurrent();
+          App.setState( 'init' );
+        }
+      });
+    })
   }
 }

@@ -11,6 +11,9 @@ class LoginForm extends AsyncForm {
    * */
   onSubmit(data) {
     console.log(data)
-
+    User.login(data, (err, response) => {
+      console.log('Прошла')
+      console.log(response)
+    })
   }
 }

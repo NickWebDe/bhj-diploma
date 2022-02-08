@@ -16,6 +16,8 @@ class RegisterForm extends AsyncForm {
         const element = new Modal(document.querySelector('#modal-register'));
         element.close();
         App.setState( 'user-logged' );
+        User.setCurrent(response.user)
+        console.log(response)
       }
     })
 

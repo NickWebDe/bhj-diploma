@@ -4,13 +4,14 @@
  * Имеет свойство URL, равное '/user'.
  * */
 class User {
+  static URL = '/user';
+
   /**
    * Устанавливает текущего пользователя в
    * локальном хранилище.
    * */
   static setCurrent(user) {
-
-
+    localStorage.user = JSON.stringify(user);
   }
 
   /**
@@ -18,6 +19,7 @@ class User {
    * пользователе из локального хранилища.
    * */
   static unsetCurrent() {
+    localStorage.removeItem('user');
 
   }
 
@@ -26,6 +28,8 @@ class User {
    * из локального хранилища
    * */
   static current() {
+    return JSON.parse(localStorage.user);
+
 
   }
 
@@ -34,7 +38,15 @@ class User {
    * авторизованном пользователе.
    * */
   static fetch(callback) {
-
+    createRequest({
+      url: this.URL + '/current',
+      method: 'GET',
+      responseType: 'json',
+      callback: (err, response) => {
+          console.log(response)
+        callback(err, response);
+      }
+    });
   }
 
   /**
@@ -52,6 +64,7 @@ class User {
       callback: (err, response) => {
         if (response && response.user) {
           this.setCurrent(response.user);
+          console.log(response)
         }
         callback(err, response);
       }
@@ -66,12 +79,13 @@ class User {
    * */
   static register(data, callback) {
     createRequest({
-      url: 'user/register',
+      url: this.URL + '/register',
       method: 'POST',
       responseType: 'json',
       data: data,
       callback: callback,
     });
+
   }
 
 
@@ -81,6 +95,11 @@ class User {
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
   static logout(callback) {
-
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/user/logout');
+    xhr.onreadystatechange = () => {
+      callback(xhr.response);
+    };
+    xhr.send();
   }
 }
