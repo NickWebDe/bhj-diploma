@@ -10,10 +10,11 @@ class LoginForm extends AsyncForm {
    * закрывает окно, в котором находится форма
    * */
   onSubmit(data) {
-    console.log(data)
     User.login(data, (err, response) => {
-      console.log('Прошла')
-      console.log(response)
+      if(response.success) {
+        App.setState('user-logged');
+        new Modal(document.querySelector('#modal-login')).close(); //Можно ли так обьявлять элемент без явного присваивания let = или const = ?
+      }
     })
   }
 }

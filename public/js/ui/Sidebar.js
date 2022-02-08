@@ -47,7 +47,6 @@ class Sidebar {
       User.logout((response) => {
         let obj = JSON.parse(response);
         if(obj.success) {
-         console.log('Вышел');
           User.unsetCurrent();
           App.setState( 'init' );
         }

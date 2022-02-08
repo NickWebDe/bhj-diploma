@@ -12,6 +12,10 @@ class UserWidget {
    * необходимо выкинуть ошибку.
    * */
   constructor(element){
+    if(element === undefined) {
+      throw new Error('Parametr undefined')
+    }
+    this.element = element;
 
   }
 
@@ -23,6 +27,9 @@ class UserWidget {
    * авторизованного пользователя
    * */
   update(){
-
+    const userInf = JSON.parse(localStorage.getItem('user'));
+    if(User.current().email === userInf.email) {
+      this.element.querySelector('.user-name ').textContent = User.current().email;
+    }
   }
 }

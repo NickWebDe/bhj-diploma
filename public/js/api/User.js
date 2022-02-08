@@ -43,7 +43,6 @@ class User {
       method: 'GET',
       responseType: 'json',
       callback: (err, response) => {
-          console.log(response)
         callback(err, response);
       }
     });
@@ -62,9 +61,8 @@ class User {
       responseType: 'json',
       data,
       callback: (err, response) => {
-        if (response && response.user) {
+        if (response.success) {
           this.setCurrent(response.user);
-          console.log(response)
         }
         callback(err, response);
       }
@@ -83,7 +81,9 @@ class User {
       method: 'POST',
       responseType: 'json',
       data: data,
-      callback: callback,
+      callback: (err, response) => {
+        callback(err, response);
+      },
     });
 
   }

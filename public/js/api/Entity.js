@@ -10,6 +10,7 @@ class Entity {
    * */
   static list(data, callback){
     createRequest(data.method = 'GET', data.url = this.url);
+    callback(err, response);
 
   }
 
@@ -19,7 +20,7 @@ class Entity {
    * что наследуется от Entity)
    * */
   static create(data, callback) {
-    createRequest(data.method = 'GET', data.url = this.url);
+    createRequest(data.method = 'PUT', data.url = this.url);
     callback();
 
   }

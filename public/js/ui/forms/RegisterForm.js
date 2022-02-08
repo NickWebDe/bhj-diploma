@@ -17,7 +17,6 @@ class RegisterForm extends AsyncForm {
         element.close();
         App.setState( 'user-logged' );
         User.setCurrent(response.user)
-        console.log(response)
       }
     })
 
